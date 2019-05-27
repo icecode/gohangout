@@ -326,7 +326,7 @@ func (p *ClickhouseOutput) innerFlush(events []map[string]interface{}) {
 			args := make([]interface{}, p.fieldsLength)
 			for i, field := range p.fields {
 				if v, ok := event[field]; ok && v != nil {
-					args[i] = v.(int)
+					args[i], _ = v.(json.Number).Int64()
 				} else {
 					if vv, ok := p.defaultValue[field]; ok {
 						args[i] = vv
