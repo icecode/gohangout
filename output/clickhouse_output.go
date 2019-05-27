@@ -132,7 +132,7 @@ func (c *ClickhouseOutput) checkColumnDefault() {
 
 		// TODO default expression should be supported
 		switch d.DefaultType {
-		case "MATERIALIZED", "ALIAS", "DEFAULT":
+		case "MATERIALIZED", "ALIAS":
 			glog.Fatal("MATERIALIZED, ALIAS, DEFAULT field not supported")
 		}
 	}
@@ -336,7 +336,7 @@ func (p *ClickhouseOutput) innerFlush(events []map[string]interface{}) {
 				}
 			}
 			if _, err := stmt.Exec(args...); err != nil {
-				glog.Errorf("exec clickhouse insert %v error: %s", event, err)
+				glog.Errorf("exec clickhouse insert %v error: %s", args, err)
 				return
 			}
 		}
