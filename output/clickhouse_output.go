@@ -329,6 +329,7 @@ func (p *ClickhouseOutput) innerFlush(events []map[string]interface{}) {
 					args[i] = v
 				} else {
 					if vv, ok := p.defaultValue[field]; ok {
+						glog.Infof("%s docs has been committed to clickhouse", vv)
 						args[i] = 0
 					} else { // this should not happen
 						args[i] = ""
