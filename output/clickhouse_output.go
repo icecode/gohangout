@@ -329,7 +329,7 @@ func (p *ClickhouseOutput) innerFlush(events []map[string]interface{}) {
 					args[i] = v
 				} else {
 					if vv, ok := p.defaultValue[field]; ok {
-						args[i] = vv
+						args[i] = 0
 					} else { // this should not happen
 						args[i] = ""
 					}
