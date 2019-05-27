@@ -336,7 +336,7 @@ func (p *ClickhouseOutput) innerFlush(events []map[string]interface{}) {
 					}
 				}
 			}
-			if _, err := stmt.Exec(args...); err != nil {
+			if _, err := stmt.Exec(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0); err != nil {
 				glog.Errorf("exec clickhouse insert %v error: %s", args, err)
 				return
 			}
