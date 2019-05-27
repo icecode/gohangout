@@ -326,17 +326,16 @@ func (p *ClickhouseOutput) innerFlush(events []map[string]interface{}) {
 			args := make([]interface{}, p.fieldsLength)
 			for i, field := range p.fields {
 				if v, ok := event[field]; ok && v != nil {
-					args[i] = v
+					args[i] = v.(int)
 				} else {
 					if vv, ok := p.defaultValue[field]; ok {
-						glog.Infof("%s docs has been committed to clickhouse", vv)
-						args[i] = 0
+						args[i] = vv
 					} else { // this should not happen
 						args[i] = ""
 					}
 				}
 			}
-			if _, err := stmt.Exec(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0); err != nil {
+			if _, err := stmt.Exec(args...); err != nil {
 				glog.Errorf("exec clickhouse insert %v error: %s", args, err)
 				return
 			}
